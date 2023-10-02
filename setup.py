@@ -82,7 +82,7 @@ else:
                  'torchvision>=0.5.0',
                  'tqdm>=4.40.0',
                  'urllib3>=1.25.7',
-                 'tensorflow==1.13.1'
+                 'tensorflow<=2.9.2'
                  ]
 
 
@@ -93,8 +93,8 @@ extra_reqs = {
 os.system('pip install  git+git://github.com/toblerity/shapely@master')
 
 
-project_name = 'solaris'
-setup(name='solaris',
+project_name = 'fair-solaris'
+setup(name='fair-solaris',
       version=get_version(),
       description="CosmiQ Works Geospatial Machine Learning Analysis Toolkit",
       classifiers=[

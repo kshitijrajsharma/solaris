@@ -12,6 +12,7 @@
 <!-- <img align="center" src="https://img.shields.io/docker/build/cosmiqworks/cw-eval.svg" alt="docker"> -->
 <a href="https://codecov.io/gh/CosmiQ/solaris"><img align="center" src="https://codecov.io/gh/CosmiQ/solaris/branch/master/graph/badge.svg" /></a>
 </p>
+## Fork version of solaris for latest tensorflow support
 
 ## This is a beta version of Solaris which may continue to develop. Please report any bugs through issues!
 
