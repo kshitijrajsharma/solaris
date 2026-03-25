@@ -312,6 +312,7 @@ class RasterTiler(object):
             self.nodata = self.src.nodata
         elif nodata is not None:
             self.nodata = nodata
+            
         # get index of alpha channel
         if alpha is None and self.alpha is None:
             mf_list = [rasterio.enums.MaskFlags.alpha in i for i in
@@ -386,6 +387,7 @@ class RasterTiler(object):
 
                     tile_data = src_data
 
+
                 if self.nodata:
                     mask = np.all(tile_data != nodata,
                                   axis=0).astype(np.uint8) * 255
@@ -404,10 +406,15 @@ class RasterTiler(object):
             #         resampling_method=self.resampling
             #         )
             profile = self.src.profile
+
+            ## bugfix CJ 20220726
+            ## added 'nodata' to the list of profile items to update,
+            ## so that it matches the 'fill value' used to pad the tiles.
             profile.update(width=self.dest_tile_size[1],
                            height=self.dest_tile_size[0],
                            crs=self.dest_crs,
-                           transform=dst_transform)
+                           transform=dst_transform,
+                           nodata=self.nodata)
             if len(tile_data.shape) == 2:  # if there's no channel band
                 profile.update(count=1)
             else:
@@ -425,8 +432,8 @@ class RasterTiler(object):
         if self.proj_unit not in ['meter', 'metre']:
             dest_fname = '{}_{}_{}.tif'.format(
                 dest_fname_root,
-                np.round(profile['transform'][2], 3),
-                np.round(profile['transform'][5], 3))
+                np.round(profile['transform'][2], 6),
+                np.round(profile['transform'][5], 6))
         else:
             dest_fname = '{}_{}_{}.tif'.format(
                 dest_fname_root,

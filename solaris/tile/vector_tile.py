@@ -96,8 +96,8 @@ class VectorTiler(object):
             if self.proj_unit not in ['meter', 'metre']:
                 dest_path = os.path.join(
                     self.dest_dir, '{}_{}_{}{}'.format(dest_fname_base,
-                                                       np.round(tb[0], 3),
-                                                       np.round(tb[3], 3),
+                                                       np.round(tb[0], 6),
+                                                       np.round(tb[3], 6),
                                                        output_ext))
             else:
                 dest_path = os.path.join(
@@ -172,7 +172,18 @@ class VectorTiler(object):
         else:
             reproject_bounds = False
 
-        self.proj_unit = get_projection_unit(self.src_crs)
+
+        ## CJ bugfix 2022.04.05: self.proj_unit appears to be used only for determining 
+        ## how many decimal places to use in the file name (if metric, 0, if lat/long, 6).
+        ## I ran into a problem when the image was UTM and the labels were lat/long.  
+        ## The labels get converted to UTM during tiling, but the names were being saved with 6 digits.
+        ## so not only were they too long, they didn't match the raster filenames.
+        ## Therefore I'm setting self.proj_unit to that of the raster/reprojection CRS. 
+        self.proj_unit = get_projection_unit(tile_bounds_crs)
+        # self.proj_unit = get_projection_unit(self.src_crs)
+        
+        
+        print(f'VectorTiler projection unit: {self.proj_unit}')
         if getattr(self, 'dest_crs', None) is None:
             self.dest_crs = self.src_crs
         for i, tb in enumerate(tile_bounds):

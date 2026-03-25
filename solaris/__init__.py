@@ -1,3 +1,3 @@
-from . import bin, data, eval, nets, preproc, raster, tile, utils, vector
+from . import bin, data, eval, preproc, raster, tile, utils, vector
 
-__version__ = "0.4.2"
+__version__ = "0.4.0"

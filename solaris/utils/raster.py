@@ -1,8 +1,8 @@
-import torch
 import numpy as np
 import tensorflow as tf
 
 
+# Modified to use only tf
 def reorder_axes(arr, target='tensorflow'):
     """Check order of axes in an array or tensor and convert to desired format.
 
@@ -20,22 +20,25 @@ def reorder_axes(arr, target='tensorflow'):
     order.
     """
 
-    if isinstance(arr, torch.Tensor) or isinstance(arr, np.ndarray):
+    if isinstance(arr, torch.Tensor):
+        raise RuntimeError("Pytorch not supported")
+    if isinstance(arr, np.ndarray):
         axes = list(arr.shape)
     elif isinstance(arr, tf.Tensor):
         axes = arr.get_shape().as_list()
 
     if isinstance(arr, torch.Tensor):
-        if len(axes) == 3:
-            if target == 'tensorflow' and axes[0] < axes[1]:
-                arr = arr.permute(1, 2, 0)
-            elif target == 'torch' and axes[2] < axes[1]:
-                arr = arr.permute(2, 0, 1)
-        elif len(axes) == 4:
-            if target == 'tensorflow' and axes[1] < axes[2]:
-                arr = arr.permute(0, 2, 3, 1)
-            elif target == 'torch' and axes[3] < axes[2]:
-                arr = arr.permute(0, 3, 1, 2)
+        raise RuntimeError("Pytorch not supported")
+        # if len(axes) == 3:
+        #     if target == 'tensorflow' and axes[0] < axes[1]:
+        #         arr = arr.permute(1, 2, 0)
+        #     elif target == 'torch' and axes[2] < axes[1]:
+        #         arr = arr.permute(2, 0, 1)
+        # elif len(axes) == 4:
+        #     if target == 'tensorflow' and axes[1] < axes[2]:
+        #         arr = arr.permute(0, 2, 3, 1)
+        #     elif target == 'torch' and axes[3] < axes[2]:
+        #         arr = arr.permute(0, 3, 1, 2)
 
     elif isinstance(arr, np.ndarray):
         if len(axes) == 3:

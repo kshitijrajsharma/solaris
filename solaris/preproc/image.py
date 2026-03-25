@@ -1,9 +1,8 @@
-import gdal
 import math
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-from osgeo import gdal_array
+from osgeo import gdal, gdal_array
 import pandas as pd
 import uuid
 import warnings

@@ -61,9 +61,9 @@ if on_rtd:
 else:
     inst_reqs = ['pip>=19.0.3',
                  'affine>=2.3.0',
-                 'albumentations==0.4.3',
+                 'albumentations>=0.4.3',
                  'fiona>=1.7.13',
-                 'gdal>=3.0.2',
+                 'gdal',
                  'geopandas>=0.7.0',
                  'matplotlib>=3.1.2',
                  'networkx>=2.4',
@@ -71,18 +71,15 @@ else:
                  'opencv-python>=4.1',
                  'pandas>=0.25.3',
                  'pyproj>=2.1',
-                 'torch>=1.3.1',
-                 'pyyaml==5.2',
+                 'pyyaml>=5.2',
                  'rasterio>=1.0.23',
-                 'requests==2.22.0',
+                 'requests>=2.22.0',
                  'rtree>=0.9.3',
                  'scikit-image>=0.16.2',
                  'scipy>=1.3.2',
                  'shapely>=1.7.1dev',
-                 'torchvision>=0.5.0',
                  'tqdm>=4.40.0',
                  'urllib3>=1.25.7',
-                 'tensorflow<=2.9.2'
                  ]
 
 
@@ -93,8 +90,8 @@ extra_reqs = {
 os.system('pip install  git+git://github.com/toblerity/shapely@master')
 
 
-project_name = 'fair-solaris'
-setup(name='fair-solaris',
+project_name = 'solaris'
+setup(name='solaris',
       version=get_version(),
       description="CosmiQ Works Geospatial Machine Learning Analysis Toolkit",
       classifiers=[
